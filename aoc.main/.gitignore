@@ -1,8 +1,3 @@
-rust/target
-target/
-input/
-Users/
-
 .calva/output-window/
 .classpath
 .clj-kondo/.cache

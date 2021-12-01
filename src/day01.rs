@@ -4,32 +4,14 @@ pub fn parse_input(input: &str) -> Vec<i32> {
 }
 
 #[aoc(day1, part1)]
-pub fn solve_part1(input: &Vec<i32>) -> i32 {
-    let mut counter = 0;
-    let mut last = &i32::MAX;
-
-    for i in input.iter() {
-        if i > last {
-            counter += 1;
-        }
-        last = i;
-    }
-
-    counter
+pub fn short_part1(input: &Vec<i32>) -> usize {
+    input.windows(2).filter(|x| x[0] < x[1]).count()
 }
 
 #[aoc(day1, part2)]
-pub fn solve_part2(input: &Vec<i32>) -> i32 {
-    let mut counter = 0;
-    let mut last = i32::MAX;
-
-    for x in input.windows(3) {
-        let current = x.iter().sum();
-        if current > last {
-            counter += 1;
-        }
-        last = current
-    }
-
-    counter
+pub fn short_part2(input: &Vec<i32>) -> usize {
+    input
+        .windows(4)
+        .filter(|x| x[0..3].iter().sum::<i32>() < x[1..4].iter().sum())
+        .count()
 }

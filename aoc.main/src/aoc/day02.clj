@@ -12,21 +12,26 @@
        (map parse-line)))
 
 (defn solve-part1 []
-  (let [input (-> "2" util/get-input parse-data)
-        [location depth] (reduce (fn [[location depth] [direction amount]]
-                                   (case direction
-                                     "forward" [(+ location amount) depth]
-                                     "down" [location (+ depth amount)]
-                                     "up" [location (- depth amount)]))
-                                 [0 0] input)]
-    (* location depth)))
+  (->> "2"
+       util/get-input
+       parse-data
+       (reduce (fn [[location depth] [direction amount]]
+                 (case direction
+                   "forward" [(+ location amount) depth]
+                   "down" [location (+ depth amount)]
+                   "up" [location (- depth amount)]))
+               [0 0])
+       (apply *)))
 
 (defn solve-part2 []
-  (let [input (-> "2" util/get-input parse-data)
-        [location depth _] (reduce (fn [[location depth aim] [direction amount]]
-                                     (case direction
-                                       "forward" [(+ location amount) (+ depth (* aim amount)) aim]
-                                       "down" [location depth (+ aim amount)]
-                                       "up" [location depth (- aim amount)]))
-                                   [0 0 0] input)]
-    (* location depth)))
+  (->> "2"
+       util/get-input
+       parse-data
+       (reduce (fn [[location depth aim] [direction amount]]
+                 (case direction
+                   "forward" [(+ location amount) (+ depth (* aim amount)) aim]
+                   "down" [location depth (+ aim amount)]
+                   "up" [location depth (- aim amount)]))
+               [0 0 0])
+       butlast
+       (apply *)))

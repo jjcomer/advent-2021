@@ -50,18 +50,18 @@ fn to_decimal(input: &Vec<u32>) -> u32 {
 }
 
 fn test_oxygen(zeros: u32, ones: u32) -> u32 {
-    match zeros {
-        z if z == ones => 1,
-        z if z < ones => 1,
-        _ => 0,
+    if zeros <= ones {
+        1
+    } else {
+        0
     }
 }
 
 fn test_co2(zeros: u32, ones: u32) -> u32 {
-    match zeros {
-        z if z == ones => 0,
-        z if z < ones => 0,
-        _ => 1,
+    if zeros >= ones {
+        1
+    } else {
+        0
     }
 }
 

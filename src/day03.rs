@@ -49,39 +49,30 @@ fn to_decimal(input: &Vec<u32>) -> u32 {
     u32::from_str_radix(&i, 2).unwrap()
 }
 
-fn find_oxygen(input: &Vec<Vec<u32>>) -> u32 {
-    let mut numbers = input.to_owned();
-    for i in 0..input.len() {
-        if numbers.len() == 1 {
-            return to_decimal(&numbers[0]);
-        }
-        let (zeros, ones) = get_index_count(&numbers, i);
-        let target = if zeros == ones {
-            1
-        } else if ones > zeros {
-            1
-        } else {
-            0
-        };
-        numbers = numbers.iter().filter(|x| x[i] == target).cloned().collect();
+fn test_oxygen(zeros: u32, ones: u32) -> u32 {
+    match zeros {
+        z if z == ones => 1,
+        z if z < ones => 1,
+        _ => 0,
     }
-    to_decimal(&numbers[0])
 }
 
-fn find_c02(input: &Vec<Vec<u32>>) -> u32 {
+fn test_co2(zeros: u32, ones: u32) -> u32 {
+    match zeros {
+        z if z == ones => 0,
+        z if z < ones => 0,
+        _ => 1,
+    }
+}
+
+fn find_number(input: &Vec<Vec<u32>>, test: fn(u32, u32) -> u32) -> u32 {
     let mut numbers = input.to_owned();
     for i in 0..input.len() {
         if numbers.len() == 1 {
             return to_decimal(&numbers[0]);
         }
         let (zeros, ones) = get_index_count(&numbers, i);
-        let target = if zeros == ones {
-            0
-        } else if ones > zeros {
-            0
-        } else {
-            1
-        };
+        let target = test(zeros, ones);
         numbers = numbers.iter().filter(|x| x[i] == target).cloned().collect();
     }
     to_decimal(&numbers[0])
@@ -89,7 +80,7 @@ fn find_c02(input: &Vec<Vec<u32>>) -> u32 {
 
 #[aoc(day3, part2)]
 pub fn solve_part2(input: &Vec<Vec<u32>>) -> u32 {
-    let oxygen = find_oxygen(&input);
-    let co2 = find_c02(&input);
+    let oxygen = find_number(&input, test_oxygen);
+    let co2 = find_number(&input, test_co2);
     oxygen * co2
 }

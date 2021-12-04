@@ -1,5 +1,4 @@
 use aoc_runner_derive::{aoc, aoc_generator};
-use itertools::Itertools;
 
 #[derive(Debug, Default, Clone)]
 pub struct Board {

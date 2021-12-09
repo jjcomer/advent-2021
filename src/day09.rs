@@ -66,6 +66,8 @@ pub fn solve_part2(input: &Grid) -> usize {
                 let mut new_basin = HashSet::new();
                 new_basin.insert((y, x));
                 basins.push(new_basin);
+            } else if matching_basins.len() == 1 {
+                basins[matching_basins[0]].insert((y, x));
             } else {
                 let mut new_basin = HashSet::new();
                 for i in matching_basins.iter() {

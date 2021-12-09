@@ -1,7 +1,7 @@
 use aoc_runner_derive::{aoc, aoc_generator};
 use itertools::Itertools;
-use std::collections::HashSet;
-
+//use std::collections::HashSet;
+use im::HashSet;
 type Grid = Vec<Vec<u32>>;
 
 #[aoc_generator(day9)]
@@ -47,6 +47,7 @@ fn check_in_basin(basins: &Vec<HashSet<(usize, usize)>>, y: usize, x: usize) -> 
         for n in neighbours {
             if basin.contains(&n) {
                 matching_basins.push(i);
+                break;
             }
         }
     }
@@ -71,7 +72,7 @@ pub fn solve_part2(input: &Grid) -> usize {
             } else {
                 let mut new_basin = HashSet::new();
                 for i in matching_basins.iter() {
-                    new_basin = new_basin.union(&basins[*i]).cloned().collect()
+                    new_basin = new_basin.union(basins[*i].clone());
                 }
                 new_basin.insert((y, x));
                 let mut new_basins = vec![new_basin];

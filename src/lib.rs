@@ -8,5 +8,6 @@ pub mod day07;
 pub mod day08;
 pub mod day09;
 pub mod day10;
+pub mod day11;
 
 aoc_runner_derive::aoc_lib! { year = 2021 }

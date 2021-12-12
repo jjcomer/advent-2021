@@ -53,41 +53,6 @@ fn fnd_path(
     caves: &Caves,
     current_location: &str,
     current_path: Vector<String>,
-) -> Vector<Vector<String>> {
-    let mut possible_paths = Vector::new();
-
-    let mut next_path = current_path.clone();
-    next_path.push_back(current_location.to_string());
-
-    let current_pathway = caves.get(current_location).unwrap();
-    if current_pathway.end {
-        return vector![next_path];
-    }
-
-    for next_location in current_pathway.uppers.iter().chain(
-        current_pathway
-            .lowers
-            .iter()
-            .filter(|p| !current_path.contains(p)),
-    ) {
-        let new_paths = fnd_path(caves, next_location, next_path.clone());
-        for p in new_paths {
-            possible_paths.push_back(p);
-        }
-    }
-
-    possible_paths
-}
-
-#[aoc(day12, part1)]
-pub fn solve_part1(input: &Caves) -> usize {
-    fnd_path(input, &"start", Vector::new()).len()
-}
-
-fn fnd_path2(
-    caves: &Caves,
-    current_location: &str,
-    current_path: Vector<String>,
     double_lower: bool,
 ) -> Vector<Vector<String>> {
     let mut possible_paths = Vector::new();
@@ -101,7 +66,7 @@ fn fnd_path2(
     }
 
     for next_location in current_pathway.uppers.iter() {
-        let new_paths = fnd_path2(caves, next_location, next_path.clone(), double_lower);
+        let new_paths = fnd_path(caves, next_location, next_path.clone(), double_lower);
         for p in new_paths {
             possible_paths.push_back(p);
         }
@@ -113,7 +78,7 @@ fn fnd_path2(
             .iter()
             .filter(|p| !current_path.contains(p))
         {
-            let new_paths = fnd_path2(caves, next_location, next_path.clone(), double_lower);
+            let new_paths = fnd_path(caves, next_location, next_path.clone(), double_lower);
             for p in new_paths {
                 possible_paths.push_back(p);
             }
@@ -125,12 +90,12 @@ fn fnd_path2(
             }
 
             if current_path.contains(next_location) {
-                let new_paths = fnd_path2(caves, next_location, next_path.clone(), true);
+                let new_paths = fnd_path(caves, next_location, next_path.clone(), true);
                 for p in new_paths {
                     possible_paths.push_back(p);
                 }
             } else {
-                let new_paths = fnd_path2(caves, next_location, next_path.clone(), double_lower);
+                let new_paths = fnd_path(caves, next_location, next_path.clone(), double_lower);
                 for p in new_paths {
                     possible_paths.push_back(p);
                 }
@@ -141,7 +106,12 @@ fn fnd_path2(
     possible_paths
 }
 
+#[aoc(day12, part1)]
+pub fn solve_part1(input: &Caves) -> usize {
+    fnd_path(input, &"start", Vector::new(), true).len()
+}
+
 #[aoc(day12, part2)]
 pub fn solve_part2(input: &Caves) -> usize {
-    fnd_path2(input, &"start", Vector::new(), false).len()
+    fnd_path(input, &"start", Vector::new(), false).len()
 }

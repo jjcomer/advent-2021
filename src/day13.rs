@@ -9,7 +9,7 @@ pub fn parse_input(input: &str) -> (HashSet<(usize, usize)>, Vec<(bool, usize)>)
         .unwrap()
         .lines()
         .map(|l| {
-            let mut coords = l.split(",");
+            let mut coords = l.split(',');
             (
                 coords.next().unwrap().parse().unwrap(),
                 coords.next().unwrap().parse().unwrap(),
@@ -22,8 +22,8 @@ pub fn parse_input(input: &str) -> (HashSet<(usize, usize)>, Vec<(bool, usize)>)
         .unwrap()
         .lines()
         .map(|l| {
-            let mut i = l.split("=");
-            let direction = i.next().unwrap().chars().last().unwrap() == 'x';
+            let mut i = l.split('=');
+            let direction = i.next().unwrap().ends_with('x');
             (direction, i.next().unwrap().parse().unwrap())
         })
         .collect();
@@ -71,7 +71,7 @@ fn print_sheet(sheet: &HashSet<(usize, usize)>) {
                 print!(" ");
             }
         }
-        println!("");
+        println!();
     }
 }
 

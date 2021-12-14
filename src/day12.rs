@@ -17,7 +17,7 @@ pub struct Pathways {
 pub fn parse_input(input: &str) -> Caves {
     let mut caves: Caves = HashMap::new();
     for l in input.lines() {
-        let mut segments = l.trim().split("-");
+        let mut segments = l.trim().split('-');
         let a = segments.next().unwrap().to_string();
         let b = segments.next().unwrap().to_string();
 
@@ -108,10 +108,10 @@ fn fnd_path(
 
 #[aoc(day12, part1)]
 pub fn solve_part1(input: &Caves) -> usize {
-    fnd_path(input, &"start", Vector::new(), true).len()
+    fnd_path(input, "start", Vector::new(), true).len()
 }
 
 #[aoc(day12, part2)]
 pub fn solve_part2(input: &Caves) -> usize {
-    fnd_path(input, &"start", Vector::new(), false).len()
+    fnd_path(input, "start", Vector::new(), false).len()
 }

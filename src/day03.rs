@@ -13,7 +13,7 @@ pub fn parse_input(input: &str) -> Vec<Vec<u32>> {
         .collect()
 }
 
-fn get_counts(input: &Vec<Vec<u32>>) -> Vec<u32> {
+fn get_counts(input: &[Vec<u32>]) -> Vec<u32> {
     let first = input.first().unwrap().to_owned();
     input.iter().skip(1).fold(first, |acc, x| {
         let mut next = Vec::new();
@@ -39,12 +39,12 @@ pub fn solve_part1(input: &Vec<Vec<u32>>) -> u32 {
     u32::from_str_radix(&gamma, 2).unwrap() * u32::from_str_radix(&epsilon, 2).unwrap()
 }
 
-fn get_index_count(input: &Vec<Vec<u32>>, index: usize) -> (u32, u32) {
+fn get_index_count(input: &[Vec<u32>], index: usize) -> (u32, u32) {
     let ones = input.iter().map(|x| x.get(index).unwrap()).sum();
     (input.len() as u32 - ones, ones)
 }
 
-fn to_decimal(input: &Vec<u32>) -> u32 {
+fn to_decimal(input: &[u32]) -> u32 {
     let i = input.iter().map(|x| x.to_string()).join("");
     u32::from_str_radix(&i, 2).unwrap()
 }
@@ -65,7 +65,7 @@ fn test_co2(zeros: u32, ones: u32) -> u32 {
     }
 }
 
-fn find_number(input: &Vec<Vec<u32>>, test: fn(u32, u32) -> u32) -> u32 {
+fn find_number(input: &[Vec<u32>], test: fn(u32, u32) -> u32) -> u32 {
     let mut numbers = input.to_owned();
     for i in 0..input.len() {
         if numbers.len() == 1 {
@@ -80,7 +80,7 @@ fn find_number(input: &Vec<Vec<u32>>, test: fn(u32, u32) -> u32) -> u32 {
 
 #[aoc(day3, part2)]
 pub fn solve_part2(input: &Vec<Vec<u32>>) -> u32 {
-    let oxygen = find_number(&input, test_oxygen);
-    let co2 = find_number(&input, test_co2);
+    let oxygen = find_number(input, test_oxygen);
+    let co2 = find_number(input, test_co2);
     oxygen * co2
 }

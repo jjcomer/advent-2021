@@ -32,10 +32,7 @@ fn compute_cycle(
     new_counts
 }
 
-fn get_counts(
-    orig_input: &Vec<char>,
-    pairs: &HashMap<(char, char), usize>,
-) -> HashMap<char, usize> {
+fn get_counts(orig_input: &[char], pairs: &HashMap<(char, char), usize>) -> HashMap<char, usize> {
     let mut counts = HashMap::new();
     *counts.entry(*orig_input.last().unwrap()).or_default() += 1;
     for ((c, _), v) in pairs.iter() {

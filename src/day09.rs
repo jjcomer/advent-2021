@@ -40,7 +40,7 @@ pub fn solve_part1(input: &Grid) -> u32 {
     points.iter().sum()
 }
 
-fn check_in_basin(basins: &Vec<HashSet<(usize, usize)>>, y: usize, x: usize) -> Vec<usize> {
+fn check_in_basin(basins: &[HashSet<(usize, usize)>], y: usize, x: usize) -> Vec<usize> {
     let neighbours = [(y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)];
     let mut matching_basins = Vec::new();
     for (i, basin) in basins.iter().enumerate() {

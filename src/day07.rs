@@ -5,10 +5,10 @@ use aoc_runner_derive::{aoc, aoc_generator};
 #[aoc_generator(day7)]
 pub fn parse_input(input: &str) -> Vec<i32> {
     let mut result = input
-        .split(",")
+        .split(',')
         .map(|n| n.parse().unwrap())
         .collect::<Vec<i32>>();
-    result.sort();
+    result.sort_unstable();
     result
 }
 

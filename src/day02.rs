@@ -5,7 +5,7 @@ pub fn pares_input(input: &str) -> Vec<(String, i32)> {
     input
         .lines()
         .map(|l| {
-            let mut s = l.split(" ");
+            let mut s = l.split(' ');
             (
                 s.next().unwrap().to_owned(),
                 s.next().unwrap().parse::<i32>().unwrap(),

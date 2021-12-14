@@ -13,12 +13,12 @@ pub fn parse_input(input: &str) -> Vec<(Vec<HashSet<char>>, Vec<HashSet<char>>)>
             (
                 line.next()
                     .unwrap()
-                    .split(" ")
+                    .split(' ')
                     .map(|s| s.chars().collect())
                     .collect(),
                 line.next()
                     .unwrap()
-                    .split(" ")
+                    .split(' ')
                     .map(|s| s.chars().collect())
                     .collect(),
             )
@@ -33,10 +33,7 @@ pub fn solve_part1(input: &Vec<(Vec<HashSet<char>>, Vec<HashSet<char>>)>) -> usi
         .map(|(_, output)| {
             output
                 .iter()
-                .filter(|s| match s.len() {
-                    2 | 4 | 3 | 7 => true,
-                    _ => false,
-                })
+                .filter(|s| matches!(s.len(), 2 | 4 | 3 | 7))
                 .count()
         })
         .sum()
@@ -45,7 +42,7 @@ pub fn solve_part1(input: &Vec<(Vec<HashSet<char>>, Vec<HashSet<char>>)>) -> usi
 fn six_numbers<'a>(
     one: &Digit,
     four: &Digit,
-    unknown: &'a Vec<Digit>,
+    unknown: &'a [Digit],
 ) -> (&'a Digit, &'a Digit, &'a Digit) {
     //0,6,9
     let mut sixes = unknown.iter().filter(|n| n.len() == 6);
@@ -86,7 +83,7 @@ fn six_numbers<'a>(
 fn five_numbers<'a>(
     seven: &Digit,
     nine: &Digit,
-    numbers: &'a Vec<Digit>,
+    numbers: &'a [Digit],
 ) -> (&'a Digit, &'a Digit, &'a Digit) {
     // 2,3,5
     let mut fives = numbers.iter().filter(|d| d.len() == 5);
@@ -124,11 +121,11 @@ fn five_numbers<'a>(
     }
 }
 
-fn map_numbers(unknown: &Vec<Digit>, input: &Vec<Digit>) -> u32 {
-    let one = unknown.iter().filter(|n| n.len() == 2).next().unwrap();
-    let seven = unknown.iter().filter(|n| n.len() == 3).next().unwrap();
-    let four = unknown.iter().filter(|n| n.len() == 4).next().unwrap();
-    let eight = unknown.iter().filter(|n| n.len() == 7).next().unwrap();
+fn map_numbers(unknown: &[Digit], input: &[Digit]) -> u32 {
+    let one = unknown.iter().find(|n| n.len() == 2).unwrap();
+    let seven = unknown.iter().find(|n| n.len() == 3).unwrap();
+    let four = unknown.iter().find(|n| n.len() == 4).unwrap();
+    let eight = unknown.iter().find(|n| n.len() == 7).unwrap();
     let (zero, six, nine) = six_numbers(one, four, unknown);
     let (two, three, five) = five_numbers(seven, nine, unknown);
 

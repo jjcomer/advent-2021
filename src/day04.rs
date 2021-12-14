@@ -60,10 +60,10 @@ pub fn parse_input(input: &str) -> (Vec<u32>, Vec<Board>) {
     let turns = lines
         .next()
         .unwrap()
-        .split(",")
+        .split(',')
         .map(|n| n.parse().unwrap())
         .collect();
-    let boards = lines.map(|l| Board::new(l)).collect();
+    let boards = lines.map(Board::new).collect();
 
     (turns, boards)
 }
@@ -73,10 +73,8 @@ pub fn solve_part1(input: &(Vec<u32>, Vec<Board>)) -> u32 {
     let mut boards = input.1.clone();
     for turn in input.0.iter() {
         for board in boards.iter_mut() {
-            if board.mark(*turn) {
-                if board.check_win() {
-                    return *turn * board.score_board();
-                }
+            if board.mark(*turn) && board.check_win() {
+                return *turn * board.score_board();
             }
         }
     }
@@ -90,12 +88,10 @@ pub fn solve_part2(input: &(Vec<u32>, Vec<Board>)) -> u32 {
         let board_count = boards.len();
         for board in boards.iter_mut() {
             if board.mark(*turn) {
-                if board.check_win() {
-                    if board_count == 1 {
-                        return *turn * board.score_board();
-                    } else {
-                        board.done = true;
-                    }
+                if board.check_win() && board_count == 1 {
+                    return *turn * board.score_board();
+                } else {
+                    board.done = true;
                 }
             }
         }

@@ -11,8 +11,8 @@ pub struct LineSeg {
 impl LineSeg {
     fn new(input: &str) -> Option<Self> {
         let mut points = input.split(" -> ");
-        let mut raw_a = points.next()?.split(",");
-        let mut raw_b = points.next()?.split(",");
+        let mut raw_a = points.next()?.split(',');
+        let mut raw_b = points.next()?.split(',');
         Some(LineSeg {
             a: (
                 raw_a.next()?.parse().unwrap(),
@@ -36,12 +36,10 @@ impl LineSeg {
             } else {
                 (self.b.1..=self.a.1).map(|i| (self.a.0, i)).collect()
             }
+        } else if self.a.0 <= self.b.0 {
+            (self.a.0..=self.b.0).map(|i| (i, self.a.1)).collect()
         } else {
-            if self.a.0 <= self.b.0 {
-                (self.a.0..=self.b.0).map(|i| (i, self.a.1)).collect()
-            } else {
-                (self.b.0..=self.a.0).map(|i| (i, self.a.1)).collect()
-            }
+            (self.b.0..=self.a.0).map(|i| (i, self.a.1)).collect()
         }
     }
 
@@ -54,18 +52,16 @@ impl LineSeg {
                     .zip((self.b.1..=self.a.1).rev())
                     .collect()
             }
+        } else if self.a.1 <= self.b.1 {
+            (self.b.0..=self.a.0)
+                .rev()
+                .zip(self.a.1..=self.b.1)
+                .collect()
         } else {
-            if self.a.1 <= self.b.1 {
-                (self.b.0..=self.a.0)
-                    .rev()
-                    .zip(self.a.1..=self.b.1)
-                    .collect()
-            } else {
-                (self.b.0..=self.a.0)
-                    .rev()
-                    .zip((self.b.1..=self.a.1).rev())
-                    .collect()
-            }
+            (self.b.0..=self.a.0)
+                .rev()
+                .zip((self.b.1..=self.a.1).rev())
+                .collect()
         }
     }
 

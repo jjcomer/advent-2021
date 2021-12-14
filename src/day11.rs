@@ -1,6 +1,6 @@
 use aoc_runner_derive::{aoc, aoc_generator};
 use itertools::{iproduct, Itertools};
-use std::{collections::VecDeque, iter};
+use std::collections::VecDeque;
 
 type Grid = Vec<Vec<Octo>>;
 
@@ -66,19 +66,13 @@ fn process_cycle(grid: &mut Grid, cycle: usize) -> usize {
         .map(|o| (o.x, o.y))
         .collect::<VecDeque<(usize, usize)>>();
 
-    loop {
-        //println!("{:?}", to_flash);
-        match to_flash.pop_front() {
-            Some((x, y)) => {
-                let o = grid.get_mut(y).unwrap().get_mut(x).unwrap();
-                if o.receive_flash(cycle) {
-                    flashes += 1;
-                    for n in get_neighbours(x, y) {
-                        to_flash.push_back(n);
-                    }
-                }
+    while let Some((x, y)) = to_flash.pop_front() {
+        let o = grid.get_mut(y).unwrap().get_mut(x).unwrap();
+        if o.receive_flash(cycle) {
+            flashes += 1;
+            for n in get_neighbours(x, y) {
+                to_flash.push_back(n);
             }
-            None => break,
         }
     }
 
@@ -100,22 +94,12 @@ pub fn parse_input(input: &str) -> Vec<Vec<Octo>> {
         .collect()
 }
 
-fn print_grid(cycle: usize, grid: &Grid) {
-    println!("Cycle {}", cycle);
-    for l in grid {
-        for o in l {
-            print!("{} ", o.current_energy);
-        }
-        println!("");
-    }
-}
-
 #[aoc(day11, part1)]
 pub fn solve_part1(input: &Grid) -> usize {
     let mut grid = input.to_owned();
     let mut flashes = 0;
 
-    for cycle in 1..=100 as usize {
+    for cycle in 1..=100_usize {
         let new_flashes = process_cycle(&mut grid, cycle);
         flashes += new_flashes;
         //print_grid(cycle, &grid);

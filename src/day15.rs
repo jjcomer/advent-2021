@@ -3,7 +3,7 @@ use itertools::iproduct;
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 
-use std::collections::{HashMap, HashSet, VecDeque};
+use std::collections::{HashMap, HashSet};
 
 //https://doc.rust-lang.org/std/collections/binary_heap/index.html
 
@@ -40,11 +40,11 @@ pub fn parse_input(input: &str) -> Vec<Vec<i32>> {
         .collect()
 }
 
-fn fill_grid(base_grid: &[Vec<i32>]) -> HashMap<(i32, i32), i32> {
-    let mut costs = HashMap::new();
+fn fill_grid(base_grid: &[Vec<i32>]) -> Vec<Vec<i32>> {
+    let mut a_costs = vec![vec![i32::MAX; base_grid[0].len()]; base_grid.len()];
     let mut points = BinaryHeap::new();
     let mut visited = HashSet::new();
-    costs.insert((0, 0), 0);
+    a_costs[0][0] = 0;
     points.push(State {
         cost: 0,
         position: (0, 0),
@@ -59,8 +59,8 @@ fn fill_grid(base_grid: &[Vec<i32>]) -> HashMap<(i32, i32), i32> {
         if visited.contains(&(x, y)) {
             continue;
         }
-        let this_cost = costs.get(&(x, y)).unwrap().clone();
-        for (dx, dy) in iproduct!(-1..=1 as i32, -1..=1 as i32) {
+        let this_cost = a_costs[y as usize][x as usize];
+        for (dx, dy) in iproduct!(-1..=1_i32, -1..=1_i32) {
             if dx.abs() == dy.abs()
                 || x + dx < 0
                 || x + dx >= max_x
@@ -70,10 +70,10 @@ fn fill_grid(base_grid: &[Vec<i32>]) -> HashMap<(i32, i32), i32> {
             {
                 continue;
             }
-            let current_cost = costs.entry((x + dx, y + dy)).or_insert(i32::MAX);
+            let current_cost = a_costs[(y + dy) as usize][(x + dx) as usize];
             let possible_low = this_cost + base_grid[(y + dy) as usize][(x + dx) as usize];
-            if possible_low < *current_cost {
-                *current_cost = possible_low;
+            if possible_low < current_cost {
+                a_costs[(y + dy) as usize][(x + dx) as usize] = possible_low;
                 points.push(State {
                     cost: possible_low,
                     position: (dx + x, dy + y),
@@ -83,15 +83,13 @@ fn fill_grid(base_grid: &[Vec<i32>]) -> HashMap<(i32, i32), i32> {
         visited.insert((x, y));
     }
 
-    costs
+    a_costs
 }
 
 #[aoc(day15, part1)]
 pub fn solve_part1(input: &Vec<Vec<i32>>) -> i32 {
     let costs = fill_grid(input);
-    *costs
-        .get(&(input[0].len() as i32 - 1, input.len() as i32 - 1))
-        .unwrap()
+    costs[input.len() - 1][input[0].len() - 1]
 }
 
 fn build_bigger_map(input: &[Vec<i32>]) -> Vec<Vec<i32>> {
@@ -124,9 +122,7 @@ pub fn solve_part2(input: &Vec<Vec<i32>>) -> i32 {
     let new_map = build_bigger_map(input);
     //print_grid(&new_map);
     let costs = fill_grid(&new_map);
-    *costs
-        .get(&(new_map[0].len() as i32 - 1, new_map.len() as i32 - 1))
-        .unwrap()
+    costs[new_map.len() - 1][new_map[0].len() - 1]
 }
 
 #[cfg(test)]

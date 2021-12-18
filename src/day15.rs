@@ -87,7 +87,7 @@ fn fill_grid(base_grid: &[Vec<i32>]) -> Vec<Vec<i32>> {
 }
 
 #[aoc(day15, part1)]
-pub fn solve_part1(input: &Vec<Vec<i32>>) -> i32 {
+pub fn solve_part1(input: &[Vec<i32>]) -> i32 {
     let costs = fill_grid(input);
     costs[input.len() - 1][input[0].len() - 1]
 }
@@ -108,7 +108,7 @@ fn build_bigger_map(input: &[Vec<i32>]) -> Vec<Vec<i32>> {
     new_grid
 }
 
-fn print_grid(input: &[Vec<i32>]) {
+fn _print_grid(input: &[Vec<i32>]) {
     for line in input.iter() {
         for x in line {
             print!("{}", x);
@@ -118,7 +118,7 @@ fn print_grid(input: &[Vec<i32>]) {
 }
 
 #[aoc(day15, part2)]
-pub fn solve_part2(input: &Vec<Vec<i32>>) -> i32 {
+pub fn solve_part2(input: &[Vec<i32>]) -> i32 {
     let new_map = build_bigger_map(input);
     //print_grid(&new_map);
     let costs = fill_grid(&new_map);

@@ -10,13 +10,13 @@ pub fn parse_input(input: &str) -> Vec<i32> {
 }
 
 #[aoc(day17, part1)]
-pub fn solve_part1(input: &Vec<i32>) -> i32 {
+pub fn solve_part1(input: &[i32]) -> i32 {
     //highest point will hit the lowest point and 0 before -> natural summation of min-y
     (input[2] * (input[2] + 1)) / 2
 }
 
 #[aoc(day17, part2)]
-pub fn solve_part2(input: &Vec<i32>) -> usize {
+pub fn solve_part2(input: &[i32]) -> usize {
     let min_x = input[0];
     let max_x = input[1];
     let min_y = input[2];

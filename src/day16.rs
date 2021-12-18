@@ -38,7 +38,7 @@ fn process_packet_p1(input: &[char]) -> (usize, usize) {
                 length += p_length;
                 versions += p_version;
             }
-            return (versions + version, length + 11 + 7);
+            (versions + version, length + 11 + 7)
         }
         '0' => {
             let total_packet_size = to_decimal(&input[7..22]);
@@ -49,14 +49,14 @@ fn process_packet_p1(input: &[char]) -> (usize, usize) {
                 versions += p_version;
                 consumed_length += p_length;
             }
-            return (versions + version, total_packet_size + 15 + 7);
+            (versions + version, total_packet_size + 15 + 7)
         }
         _ => unreachable!(),
     }
 }
 
 #[aoc(day16, part1)]
-pub fn solve_part1(input: &Vec<char>) -> usize {
+pub fn solve_part1(input: &[char]) -> usize {
     let (version, _) = process_packet_p1(input);
     version
 }
@@ -148,7 +148,7 @@ fn process_packet_p2(input: &[char]) -> (usize, usize) {
 }
 
 #[aoc(day16, part2)]
-pub fn solve_part2(input: &Vec<char>) -> usize {
+pub fn solve_part2(input: &[char]) -> usize {
     let (result, _) = process_packet_p2(input);
     result
 }

@@ -3,7 +3,7 @@ use itertools::iproduct;
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 //https://doc.rust-lang.org/std/collections/binary_heap/index.html
 

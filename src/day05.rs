@@ -80,7 +80,7 @@ pub fn parse_input(input: &str) -> Vec<LineSeg> {
 }
 
 #[aoc(day5, part1)]
-pub fn solve_part1(input: &Vec<LineSeg>) -> usize {
+pub fn solve_part1(input: &[LineSeg]) -> usize {
     let mut points = HashMap::new();
 
     for l in input.iter().filter(|x| x.is_straight()) {
@@ -94,7 +94,7 @@ pub fn solve_part1(input: &Vec<LineSeg>) -> usize {
 }
 
 #[aoc(day5, part2)]
-pub fn solve_part2(input: &Vec<LineSeg>) -> usize {
+pub fn solve_part2(input: &[LineSeg]) -> usize {
     let mut points = HashMap::new();
 
     for l in input.iter() {

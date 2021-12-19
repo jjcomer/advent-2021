@@ -25,7 +25,7 @@ fn get_counts(input: &[Vec<u32>]) -> Vec<u32> {
 }
 
 #[aoc(day3, part1)]
-pub fn solve_part1(input: &Vec<Vec<u32>>) -> u32 {
+pub fn solve_part1(input: &[Vec<u32>]) -> u32 {
     let counts = get_counts(input);
     let threshold = input.len() as u32 / 2;
     let gamma = counts
@@ -79,7 +79,7 @@ fn find_number(input: &[Vec<u32>], test: fn(u32, u32) -> u32) -> u32 {
 }
 
 #[aoc(day3, part2)]
-pub fn solve_part2(input: &Vec<Vec<u32>>) -> u32 {
+pub fn solve_part2(input: &[Vec<u32>]) -> u32 {
     let oxygen = find_number(input, test_oxygen);
     let co2 = find_number(input, test_co2);
     oxygen * co2

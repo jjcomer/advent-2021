@@ -62,7 +62,7 @@ pub fn solve_part1(input: &[char]) -> usize {
 }
 
 fn process_packet_p2(input: &[char]) -> (usize, usize) {
-    let version = to_decimal(&input[0..3]);
+    let _version = to_decimal(&input[0..3]);
     let operator = to_decimal(&input[3..6]);
 
     //println!("{} {} {:?}", version, operator, input);

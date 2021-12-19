@@ -27,7 +27,7 @@ pub fn parse_input(input: &str) -> Vec<(Vec<HashSet<char>>, Vec<HashSet<char>>)>
 }
 
 #[aoc(day8, part1)]
-pub fn solve_part1(input: &Vec<(Vec<HashSet<char>>, Vec<HashSet<char>>)>) -> usize {
+pub fn solve_part1(input: &[(Vec<HashSet<char>>, Vec<HashSet<char>>)]) -> usize {
     input
         .iter()
         .map(|(_, output)| {
@@ -162,7 +162,7 @@ fn map_numbers(unknown: &[Digit], input: &[Digit]) -> u32 {
 }
 
 #[aoc(day8, part2)]
-pub fn solve_part2(input: &Vec<(Vec<Digit>, Vec<Digit>)>) -> u32 {
+pub fn solve_part2(input: &[(Vec<Digit>, Vec<Digit>)]) -> u32 {
     input
         .iter()
         .map(|(nums, output)| map_numbers(nums, output))

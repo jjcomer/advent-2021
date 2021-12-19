@@ -20,11 +20,11 @@ fn reproduce(input: &[usize], days: usize) -> usize {
 }
 
 #[aoc(day6, part1)]
-pub fn solve_part1(input: &Vec<usize>) -> usize {
+pub fn solve_part1(input: &[usize]) -> usize {
     reproduce(input, 80)
 }
 
 #[aoc(day6, part2)]
-pub fn solve_part2(input: &Vec<usize>) -> usize {
+pub fn solve_part2(input: &[usize]) -> usize {
     reproduce(input, 256)
 }

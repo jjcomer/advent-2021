@@ -15,7 +15,7 @@ pub fn pares_input(input: &str) -> Vec<(String, i32)> {
 }
 
 #[aoc(day2, part1)]
-pub fn solve_part1(input: &Vec<(String, i32)>) -> i32 {
+pub fn solve_part1(input: &[(String, i32)]) -> i32 {
     let mut depth = 0;
     let mut position = 0;
 
@@ -32,7 +32,7 @@ pub fn solve_part1(input: &Vec<(String, i32)>) -> i32 {
 }
 
 #[aoc(day2, part2)]
-pub fn solve_part2(input: &Vec<(String, i32)>) -> i32 {
+pub fn solve_part2(input: &[(String, i32)]) -> i32 {
     let mut depth = 0;
     let mut position = 0;
     let mut aim = 0;

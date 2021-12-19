@@ -38,7 +38,7 @@ fn find_corrupted(line: &[char]) -> (usize, Vec<char>) {
 }
 
 #[aoc(day10, part1)]
-pub fn solve_part1(input: &Vec<Vec<char>>) -> usize {
+pub fn solve_part1(input: &[Vec<char>]) -> usize {
     input.iter().map(|l| find_corrupted(l).0).sum()
 }
 
@@ -60,7 +60,7 @@ fn gen_closing_score(open_chunks: &[char]) -> usize {
 }
 
 #[aoc(day10, part2)]
-pub fn solve_part2(input: &Vec<Vec<char>>) -> usize {
+pub fn solve_part2(input: &[Vec<char>]) -> usize {
     let answers = input
         .iter()
         .map(|l| find_corrupted(l))

@@ -130,3 +130,14 @@ fn p2(input: &[Instruction]) -> i64 {
 pub fn solve_part2(input: &[Instruction]) -> i64 {
     p2(input)
 }
+
+#[aoc(day22, part1, fast)]
+pub fn solve_p1_fast(input: &[Instruction]) -> i64 {
+    p2(&input
+        .iter()
+        .cloned()
+        .filter(|(_, x0, x1, y0, y1, z0, z1)| {
+            !(*x0 > 50 || *x1 < -50 || *y0 > 50 || *y1 < -50 || *z0 > 50 || *z1 < -50)
+        })
+        .collect_vec())
+}

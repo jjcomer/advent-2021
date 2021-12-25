@@ -22,5 +22,6 @@ pub mod day21;
 pub mod day22;
 //day23 was done by hand :)
 pub mod day24;
+pub mod day25;
 
 aoc_runner_derive::aoc_lib! { year = 2021 }
